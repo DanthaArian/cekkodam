@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Kodam</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="result-title"></h1>
+        <img id="kodam-image" src="" alt="Gambar Kodam" style="width:100%;max-width:300px;">
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name');
+
+            if (name) {
+                const kodam = getKodam(name);
+                document.getElementById('result-title').innerText = `Hai ${name}, kodam kamu adalah ${kodam.nama}`;
+                document.getElementById('kodam-image').src = kodam.imageUrl;
+            } else {
+                document.getElementById('result-title').innerText = "Tidak ada kodam yang ditemukan.";
+            }
+        });
+
+        function getKodam(name) {
+            const kodams = {
+                'A': { nama: 'Kak gem', imageUrl: 'image1.jpg' },
+                'B': { nama: 'Kak gem', imageUrl: 'image1.jpg' },
+                'C': { nama: 'Uni bakwan', imageUrl: 'image2.jpg' },
+                'D': { nama: 'Uni bakwan', imageUrl: 'image2.jpg' },
+                'E': { nama: 'Windah batubara', imageUrl: 'image3.jpg' },
+                'F': { nama: 'Windah batubara', imageUrl: 'image3.jpg' },
+                'G': { nama: 'CJ', imageUrl: 'image4.jpg' },
+                'H': { nama: 'CJ', imageUrl: 'image4.jpg' },
+                'I': { nama: 'Woo Seok', imageUrl: 'image5.jpg' },
+                'J': { nama: 'Woo Seok', imageUrl: 'image5.jpg' },
+                'K': { nama: 'Naga putih', imageUrl: 'image6.jpg' },
+                'L': { nama: 'Naga putih', imageUrl: 'image6.jpg' },
+                'M': { nama: 'Mie ayam', imageUrl: 'image7.jpg' },
+                'N': { nama: 'Mie ayam', imageUrl: 'image7.jpg' },
+                'O': { nama: 'Singa', imageUrl: 'image8.jpg' },
+                'P': { nama: 'Singa', imageUrl: 'image8.jpg' },
+                'Q': { nama: 'Kucing', imageUrl: 'image9.jpg' },
+                'R': { nama: 'Kucing', imageUrl: 'image9.jpg' },
+                'S': { nama: 'Keledai', imageUrl: 'image10.jpg' },
+                'T': { nama: 'Keledai', imageUrl: 'image10.jpg' },
+                'U': { nama: 'Garda PLN', imageUrl: 'image11.jpg' },
+                'V': { nama: 'Garda PLN', imageUrl: 'image11.jpg' },
+                'W': { nama: 'Shopee', imageUrl: 'image12.jpg' },
+                'X': { nama: 'Shopee', imageUrl: 'image12.jpg' },
+                'Y': { nama: 'Tiang listrik', imageUrl: 'image13.jpg' },
+                'Z': { nama: 'Tiang listrik', imageUrl: 'image13.jpg' }
+            };
+
+            const firstChar = name.charAt(0).toUpperCase();
+            return kodams[firstChar] || { nama: 'Unknown Kodam', imageUrl: 'default.jpg' };
+        }
+    </script>
+</body>
+</html>

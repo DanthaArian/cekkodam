@@ -1,0 +1,68 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 300px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #ff4747; /* Warna merah */
+    text-shadow: 0 0 10px rgba(255, 71, 71, 0.8); /* Efek bercahaya */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ff4747; /* Warna merah */
+    text-shadow: 0 0 5px rgba(255, 71, 71, 0.6); /* Efek bercahaya */
+}
+
+input {
+    padding: 10px;
+    width: calc(100% - 22px);
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #333;
+    color: #fff;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff4747; /* Warna merah */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    text-shadow: 0 0 5px rgba(255, 71, 71, 0.6); /* Efek bercahaya */
+}
+
+button:hover {
+    background-color: #ff2222; /* Warna merah lebih gelap */
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ff4747; /* Warna merah */
+    text-shadow: 0 0 10px rgba(255, 71, 71, 0.8); /* Efek bercahaya */
+}
