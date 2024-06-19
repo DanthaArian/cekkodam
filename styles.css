@@ -8,6 +8,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: #000; /* Sebagai cadangan jika gambar tidak dimuat */
 }
 
 .container {
@@ -66,4 +67,24 @@ button:hover {
     font-size: 18px;
     color: #ff4747; /* Warna merah */
     text-shadow: 0 0 10px rgba(255, 71, 71, 0.8); /* Efek bercahaya */
+}
+
+/* Tambahan CSS untuk responsif */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    input {
+        font-size: 14px;
+    }
 }
