@@ -16,47 +16,53 @@
             const urlParams = new URLSearchParams(window.location.search);
             const name = urlParams.get('name');
 
-            if (name) {
+            if (name && name.length > 1) {
                 const kodam = getKodam(name);
                 document.getElementById('result-title').innerText = `Hai ${name}, kodam kamu adalah ${kodam.nama}`;
                 document.getElementById('kodam-image').src = kodam.imageUrl;
             } else {
-                document.getElementById('result-title').innerText = "Tidak ada kodam yang ditemukan.";
+                document.getElementById('result-title').innerText = "Nama terlalu pendek atau tidak ada kodam yang ditemukan.";
             }
         });
 
-        function getKodam(name) {
-            const kodams = {
-                'A': { nama: 'Kak gem', imageUrl: 'image1.jpg' },
-                'B': { nama: 'Kak gem', imageUrl: 'image1.jpg' },
-                'C': { nama: 'Uni bakwan', imageUrl: 'image2.jpg' },
-                'D': { nama: 'Uni bakwan', imageUrl: 'image2.jpg' },
-                'E': { nama: 'Windah batubara', imageUrl: 'image3.jpg' },
-                'F': { nama: 'Windah batubara', imageUrl: 'image3.jpg' },
-                'G': { nama: 'CJ', imageUrl: 'image4.jpg' },
-                'H': { nama: 'CJ', imageUrl: 'image4.jpg' },
-                'I': { nama: 'Woo Seok', imageUrl: 'image5.jpg' },
-                'J': { nama: 'Woo Seok', imageUrl: 'image5.jpg' },
-                'K': { nama: 'Naga putih', imageUrl: 'image6.jpg' },
-                'L': { nama: 'Naga putih', imageUrl: 'image6.jpg' },
-                'M': { nama: 'Mie ayam', imageUrl: 'image7.jpg' },
-                'N': { nama: 'Mie ayam', imageUrl: 'image7.jpg' },
-                'O': { nama: 'Singa', imageUrl: 'image8.jpg' },
-                'P': { nama: 'Singa', imageUrl: 'image8.jpg' },
-                'Q': { nama: 'Kucing', imageUrl: 'image9.jpg' },
-                'R': { nama: 'Kucing', imageUrl: 'image9.jpg' },
-                'S': { nama: 'Keledai', imageUrl: 'image10.jpg' },
-                'T': { nama: 'Keledai', imageUrl: 'image10.jpg' },
-                'U': { nama: 'Garda PLN', imageUrl: 'image11.jpg' },
-                'V': { nama: 'Garda PLN', imageUrl: 'image11.jpg' },
-                'W': { nama: 'Shopee', imageUrl: 'image12.jpg' },
-                'X': { nama: 'Shopee', imageUrl: 'image12.jpg' },
-                'Y': { nama: 'Tiang listrik', imageUrl: 'image13.jpg' },
-                'Z': { nama: 'Tiang listrik', imageUrl: 'image13.jpg' }
-            };
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
 
-            const firstChar = name.charAt(0).toUpperCase();
-            return kodams[firstChar] || { nama: 'Unknown Kodam', imageUrl: 'default.jpg' };
+        function getKodam(name) {
+            const kodams = [
+                { nama: 'Kak gem', imageUrl: 'image1.jpg' },
+                { nama: 'Uni bakwan', imageUrl: 'image2.jpg' },
+                { nama: 'Windah batubara', imageUrl: 'image3.jpg' },
+                { nama: 'CJ', imageUrl: 'image4.jpg' },
+                { nama: 'Rusdi ngawi', imageUrl: 'image5.jpg' },
+                { nama: 'Naga putih', imageUrl: 'image6.jpg' },
+                { nama: 'Mie ayam', imageUrl: 'image7.jpg' },
+                { nama: 'Gear 5', imageUrl: 'image8.jpg' },
+                { nama: 'Kucing', imageUrl: 'image9.jpg' },
+                { nama: 'Keledai', imageUrl: 'image10.jpg' },
+                { nama: 'Garda PLN', imageUrl: 'image11.jpg' },
+                { nama: 'Ambatukam', imageUrl: 'image12.jpg' },
+                { nama: 'Tiang listrik', imageUrl: 'image13.jpg' },
+                { nama: 'Esteh', imageUrl: 'image14.jpg' },
+                { nama: 'Upin', imageUrl: 'image15.jpg' },
+                { nama: 'Jalan tol', imageUrl: 'image16.jpg' }
+            ];
+
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            const shuffledLetters = shuffle(letters);
+
+            const kodamMap = {};
+            for (let i = 0; i < letters.length; i++) {
+                kodamMap[shuffledLetters[i]] = kodams[i % kodams.length];
+            }
+
+            const secondChar = name.charAt(1).toUpperCase();
+            return kodamMap[secondChar] || { nama: 'Unknown Kodam', imageUrl: 'default.jpg' };
         }
     </script>
 </body>
