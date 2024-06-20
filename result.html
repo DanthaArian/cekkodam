@@ -5,11 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Kodam</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .loading-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 10px;
+            background-color: #f3f3f3;
+            margin: 0 auto;
+            position: relative;
+        }
+        .loading-bar::after {
+            content: '';
+            width: 0;
+            height: 100%;
+            background-color: #ff4747; /* Warna merah */
+            text-shadow: 0 0 10px rgba(255, 71, 71, 0.8);
+            position: absolute;
+            left: 0;
+            top: 0;
+            animation: loading 2s linear forwards;
+        }
+        @keyframes loading {
+            to {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1 id="result-title"></h1>
         <img id="kodam-image" src="" alt="Gambar Kodam" style="width:100%;max-width:300px;">
+        <div class="loading" id="loading">
+            <div class="loading-bar"></div>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -17,9 +51,13 @@
             const name = urlParams.get('name');
 
             if (name && name.length > 1) {
-                const kodam = getKodam(name);
-                document.getElementById('result-title').innerText = `Hai ${name}, kodam kamu adalah ${kodam.nama}`;
-                document.getElementById('kodam-image').src = kodam.imageUrl;
+                showLoading(true);
+                setTimeout(() => {
+                    const kodam = getKodam(name);
+                    document.getElementById('result-title').innerText = `Hai ${name}, kodam kamu adalah ${kodam.nama}`;
+                    document.getElementById('kodam-image').src = kodam.imageUrl;
+                    showLoading(false);
+                }, 2000); // Simulating a loading time of 2 seconds
             } else {
                 document.getElementById('result-title').innerText = "Nama terlalu pendek atau tidak ada kodam yang ditemukan.";
             }
@@ -63,6 +101,15 @@
 
             const secondChar = name.charAt(1).toUpperCase();
             return kodamMap[secondChar] || { nama: 'Unknown Kodam', imageUrl: 'default.jpg' };
+        }
+
+        function showLoading(show) {
+            const loadingElement = document.getElementById('loading');
+            if (show) {
+                loadingElement.style.display = 'block';
+            } else {
+                loadingElement.style.display = 'none';
+            }
         }
     </script>
 </body>
