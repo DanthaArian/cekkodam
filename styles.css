@@ -8,7 +8,6 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #000; /* Sebagai cadangan jika gambar tidak dimuat */
 }
 
 .container {
@@ -18,21 +17,20 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     text-align: center;
     width: 300px;
+    color: #ffffff; /* Warna putih untuk teks di dalam container */
 }
 
 h1 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #ff4747; /* Warna merah */
-    text-shadow: 0 0 10px rgba(255, 71, 71, 0.8); /* Efek bercahaya */
+    color: #ff4747; /* Warna merah untuk judul h1 */
+    text-shadow: 0 0 10px rgba(255, 71, 71, 0.8); /* Efek bercahaya pada judul h1 */
 }
 
 label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #ff4747; /* Warna merah */
-    text-shadow: 0 0 5px rgba(255, 71, 71, 0.6); /* Efek bercahaya */
 }
 
 input {
@@ -48,43 +46,25 @@ input {
 
 button {
     padding: 10px 20px;
-    background-color: #ff4747; /* Warna merah */
+    background-color: #ff4747; /* Warna merah untuk tombol */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
     font-size: 16px;
-    text-shadow: 0 0 5px rgba(255, 71, 71, 0.6); /* Efek bercahaya */
+    text-shadow: 0 0 5px rgba(255, 71, 71, 0.6); /* Efek bercahaya pada tombol */
 }
 
 button:hover {
-    background-color: #ff2222; /* Warna merah lebih gelap */
+    background-color: #ff2222; /* Warna merah lebih gelap pada hover tombol */
 }
 
 #result {
     margin-top: 20px;
     font-size: 18px;
-    color: #ff4747; /* Warna merah */
-    text-shadow: 0 0 10px rgba(255, 71, 71, 0.8); /* Efek bercahaya */
 }
 
-/* Tambahan CSS untuk responsif */
-@media only screen and (max-width: 600px) {
-    .container {
-        width: 90%;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 20px;
-    }
-
-    button {
-        font-size: 14px;
-    }
-
-    input {
-        font-size: 14px;
-    }
+p span {
+    color: #ffffff; /* Warna putih untuk hasil nama dan persentase jodoh */
 }
