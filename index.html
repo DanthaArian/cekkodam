@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cek Kodam</title>
+    <title>Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Cek Kodam Anda</h1>
-        <form id="kodamForm" action="result.html" method="get">
-            <label for="name">Masukkan Nama Anda:</label>
-            <input type="text" id="name" name="name" required>
-            <button type="submit">Cek Kodam</button>
-        </form>
+        <h1>Selamat Datang</h1>
+        <div class="button-container">
+            <div class="button-box">
+                <button onclick="location.href='kodam.html'">Cek Kodam</button>
+            </div>
+            <div class="button-box">
+                <button onclick="location.href='jodoh.html'">Cek Jodoh</button>
+            </div>
+            <div class="button-box">
+                <button onclick="location.href='saldo.html'">Cek Saldo</button>
+            </div>
+        </div>
+        <p>Developer: Dantha Arianvasya</p>
     </div>
 </body>
 </html>
