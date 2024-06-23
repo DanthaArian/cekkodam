@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Jodoh</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .loading-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 10px;
+            background-color: #f3f3f3;
+            margin: 0 auto;
+            position: relative;
+        }
+        .loading-bar::after {
+            content: '';
+            width: 0;
+            height: 100%;
+            background-color: #ff4747;
+            text-shadow: 0 0 10px rgba(255, 71, 71, 0.8);
+            position: absolute;
+            left: 0;
+            top: 0;
+            animation: loading 2s linear forwards;
+        }
+        @keyframes loading {
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil Jodoh</h1>
+        <p>Nama Kamu: <span id="resultYourName"></span></p>
+        <p>Nama Orangnya: <span id="resultPartnerName"></span></p>
+        <p>Persentase Gamon apa ga ror: <span id="compatibilityPercentage"></span></p>
+        <div class="loading" id="loading">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const yourName = params.get('yourName');
+            const partnerName = params.get('partnerName');
+
+            if (yourName && partnerName && yourName.length > 1 && partnerName.length > 1) {
+                showLoading(true);
+                setTimeout(() => {
+                    document.getElementById('resultYourName').textContent = yourName;
+                    document.getElementById('resultPartnerName').textContent = partnerName;
+                    const compatibilityPercentage = calculateCompatibility(yourName, partnerName);
+                    document.getElementById('compatibilityPercentage').textContent = `${compatibilityPercentage}%`;
+                    showLoading(false);
+                }, 2000); // Simulating a loading time of 2 seconds
+            } else {
+                document.getElementById('resultYourName').textContent = "Nama tidak lengkap.";
+                document.getElementById('resultPartnerName').textContent = "Nama tidak lengkap.";
+                document.getElementById('compatibilityPercentage').textContent = "N/A";
+            }
+        });
+
+        function calculateCompatibility(name1, name2) {
+    let secondChar1 = name1.charAt(1).toLowerCase();
+    let secondChar2 = name2.charAt(1).toLowerCase();
+    
+    if (secondChar1 === ' ') {
+        secondChar1 = name1.charAt(0).toLowerCase();
+    }
+    if (secondChar2 === ' ') {
+        secondChar2 = name2.charAt(0).toLowerCase();
+    }
+    const compatibilityMap = {
+        'a': {'a': 54, 'b': 68, 'c': 98, 'd': 80, 'e': 90, 'f': 100, 'g': 10, 'h': 20, 'i': 30, 'j': 40, 'k': 50, 'l': 60, 'm': 70, 'n': 80, 'o': 90, 'p': 100, 'q': 10, 'r': 20, 's': 30, 't': 40, 'u': 50, 'v': 60, 'w': 70, 'x': 80, 'y': 90, 'z': 100},
+        'b': {'a': 80, 'b': 90, 'c': 100, 'd': 10, 'e': 20, 'f': 30, 'g': 40, 'h': 50, 'i': 60, 'j': 70, 'k': 80, 'l': 90, 'm': 100, 'n': 10, 'o': 20, 'p': 30, 'q': 40, 'r': 50, 's': 60, 't': 70, 'u': 80, 'v': 90, 'w': 100, 'x': 10, 'y': 20, 'z': 30},
+        'c': {'a': 100, 'b': 20, 'c': 30, 'd': 40, 'e': 50, 'f': 60, 'g': 70, 'h': 80, 'i': 90, 'j': 100, 'k': 10, 'l': 20, 'm': 30, 'n': 40, 'o': 50, 'p': 60, 'q': 70, 'r': 80, 's': 90, 't': 100, 'u': 10, 'v': 20, 'w': 30, 'x': 40, 'y': 50, 'z': 60},
+        'd': {'a': 60, 'b': 70, 'c': 99, 'd': 90, 'e': 100, 'f': 10, 'g': 20, 'h': 30, 'i': 40, 'j': 50, 'k': 60, 'l': 70, 'm': 80, 'n': 90, 'o': 100, 'p': 10, 'q': 20, 'r': 30, 's': 40, 't': 50, 'u': 60, 'v': 70, 'w': 80, 'x': 90, 'y': 100, 'z': 10},
+        'e': {'a': 20, 'b': 30, 'c': 40, 'd': 50, 'e': 60, 'f': 70, 'g': 80, 'h': 90, 'i': 100, 'j': 10, 'k': 20, 'l': 30, 'm': 40, 'n': 50, 'o': 60, 'p': 70, 'q': 80, 'r': 90, 's': 100, 't': 10, 'u': 20, 'v': 30, 'w': 40, 'x': 50, 'y': 60, 'z': 70},
+        'f': {'a': 30, 'b': 40, 'c': 50, 'd': 60, 'e': 70, 'f': 93, 'g': 90, 'h': 100, 'i': 10, 'j': 20, 'k': 30, 'l': 40, 'm': 50, 'n': 60, 'o': 70, 'p': 80, 'q': 90, 'r': 100, 's': 10, 't': 20, 'u': 30, 'v': 40, 'w': 50, 'x': 60, 'y': 70, 'z': 80},
+        'g': {'a': 40, 'b': 50, 'c': 60, 'd': 70, 'e': 80, 'f': 90, 'g': 100, 'h': 10, 'i': 20, 'j': 30, 'k': 40, 'l': 50, 'm': 60, 'n': 70, 'o': 80, 'p': 90, 'q': 100, 'r': 10, 's': 20, 't': 30, 'u': 40, 'v': 50, 'w': 60, 'x': 70, 'y': 80, 'z': 90},
+        'h': {'a': 50, 'b': 60, 'c': 70, 'd': 80, 'e': 90, 'f': 100, 'g': 10, 'h': 20, 'i': 30, 'j': 40, 'k': 50, 'l': 60, 'm': 70, 'n': 80, 'o': 90, 'p': 100, 'q': 10, 'r': 20, 's': 30, 't': 40, 'u': 50, 'v': 60, 'w': 70, 'x': 80, 'y': 90, 'z': 100},
+        'i': {'a': 60, 'b': 70, 'c': 80, 'd': 90, 'e': 100, 'f': 10, 'g': 20, 'h': 30, 'i': 40, 'j': 50, 'k': 60, 'l': 70, 'm': 80, 'n': 90, 'o': 100, 'p': 10, 'q': 20, 'r': 30, 's': 40, 't': 50, 'u': 60, 'v': 70, 'w': 80, 'x': 90, 'y': 100, 'z': 10},
+        'j': {'a': 70, 'b': 80, 'c': 90, 'd': 100, 'e': 10, 'f': 20, 'g': 30, 'h': 40, 'i': 50, 'j': 60, 'k': 70, 'l': 80, 'm': 90, 'n': 100, 'o': 10, 'p': 20, 'q': 30, 'r': 40, 's': 50, 't': 60, 'u': 70, 'v': 80, 'w': 90, 'x': 100, 'y': 10, 'z': 20},
+        'k': {'a': 89, 'b': 90, 'c': 100, 'd': 10, 'e': 20, 'f': 30, 'g': 40, 'h': 50, 'i': 60, 'j': 70, 'k': 80, 'l': 90, 'm': 100, 'n': 10, 'o': 20, 'p': 30, 'q': 40, 'r': 50, 's': 60, 't': 70, 'u': 80, 'v': 90, 'w': 100, 'x': 10, 'y': 20, 'z': 30},
+        'l': {'a': 98, 'b': 100, 'c': 10, 'd': 20, 'e': 30, 'f': 40, 'g': 50, 'h': 60, 'i': 70, 'j': 80, 'k': 90, 'l': 100, 'm': 10, 'n': 20, 'o': 30, 'p': 40, 'q': 50, 'r': 60, 's': 70, 't': 80, 'u': 90, 'v': 100, 'w': 10, 'x': 20, 'y': 30, 'z': 40},
+        'm': {'a': 100, 'b': 10, 'c': 20, 'd': 30, 'e': 40, 'f': 50, 'g': 60, 'h': 70, 'i': 80, 'j': 90, 'k': 100, 'l': 10, 'm': 20, 'n': 30, 'o': 40, 'p': 50, 'q': 60, 'r': 70, 's': 80, 't': 90, 'u': 100, 'v': 10, 'w': 20, 'x': 30, 'y': 40, 'z': 50},
+        'n': {'a': 17, 'b': 20, 'c': 30, 'd': 46, 'e': 50, 'f': 60, 'g': 70, 'h': 80, 'i': 90, 'j': 100, 'k': 10, 'l': 20, 'm': 30, 'n': 40, 'o': 50, 'p': 60, 'q': 70, 'r': 80, 's': 90, 't': 100, 'u': 10, 'v': 20, 'w': 30, 'x': 40, 'y': 50, 'z': 60},
+        'o': {'a': 26, 'b': 30, 'c': 40, 'd': 50, 'e': 60, 'f': 70, 'g': 80, 'h': 90, 'i': 100, 'j': 10, 'k': 20, 'l': 30, 'm': 40, 'n': 50, 'o': 60, 'p': 70, 'q': 80, 'r': 90, 's': 100, 't': 10, 'u': 20, 'v': 30, 'w': 40, 'x': 50, 'y': 60, 'z': 70},
+        'p': {'a': 33, 'b': 40, 'c': 50, 'd': 60, 'e': 70, 'f': 80, 'g': 90, 'h': 100, 'i': 10, 'j': 20, 'k': 30, 'l': 40, 'm': 50, 'n': 60, 'o': 70, 'p': 80, 'q': 90, 'r': 100, 's': 10, 't': 20, 'u': 30, 'v': 40, 'w': 50, 'x': 60, 'y': 70, 'z': 80},
+        'q': {'a': 44, 'b': 50, 'c': 60, 'd': 70, 'e': 80, 'f': 90, 'g': 100, 'h': 10, 'i': 20, 'j': 30, 'k': 40, 'l': 50, 'm': 60, 'n': 70, 'o': 80, 'p': 90, 'q': 100, 'r': 10, 's': 20, 't': 30, 'u': 40, 'v': 50, 'w': 60, 'x': 70, 'y': 80, 'z': 90},
+        'r': {'a': 53, 'b': 60, 'c': 70, 'd': 80, 'e': 90, 'f': 100, 'g': 10, 'h': 20, 'i': 30, 'j': 40, 'k': 50, 'l': 60, 'm': 70, 'n': 80, 'o': 90, 'p': 100, 'q': 10, 'r': 20, 's': 30, 't': 40, 'u': 50, 'v': 60, 'w': 70, 'x': 80, 'y': 90, 'z': 100},
+        's': {'a': 62, 'b': 70, 'c': 80, 'd': 90, 'e': 100, 'f': 10, 'g': 20, 'h': 30, 'i': 40, 'j': 50, 'k': 60, 'l': 70, 'm': 80, 'n': 90, 'o': 100, 'p': 10, 'q': 20, 'r': 30, 's': 40, 't': 50, 'u': 60, 'v': 70, 'w': 80, 'x': 90, 'y': 100, 'z': 10},
+        't': {'a': 71, 'b': 87, 'c': 90, 'd': 100, 'e': 10, 'f': 20, 'g': 30, 'h': 40, 'i': 50, 'j': 60, 'k': 70, 'l': 80, 'm': 90, 'n': 100, 'o': 10, 'p': 20, 'q': 30, 'r': 40, 's': 50, 't': 60, 'u': 70, 'v': 80, 'w': 90, 'x': 100, 'y': 10, 'z': 20},
+        'u': {'a': 87, 'b': 90, 'c': 101, 'd': 10, 'e': 20, 'f': 30, 'g': 40, 'h': 50, 'i': 60, 'j': 70, 'k': 80, 'l': 90, 'm': 100, 'n': 10, 'o': 20, 'p': 30, 'q': 40, 'r': 50, 's': 60, 't': 70, 'u': 80, 'v': 90, 'w': 100, 'x': 10, 'y': 20, 'z': 30},
+        'v': {'a': 99, 'b': 100, 'c': 10, 'd': 20, 'e': 30, 'f': 40, 'g': 56, 'h': 60, 'i': 70, 'j': 80, 'k': 90, 'l': 100, 'm': 10, 'n': 20, 'o': 30, 'p': 40, 'q': 50, 'r': 60, 's': 70, 't': 80, 'u': 90, 'v': 100, 'w': 10, 'x': 20, 'y': 30, 'z': 40},
+        'w': {'a': 100, 'b': 10, 'c': 20, 'd': 30, 'e': 40, 'f': 50, 'g': 60, 'h': 70, 'i': 80, 'j': 90, 'k': 100, 'l': 10, 'm': 20, 'n': 30, 'o': 40, 'p': 50, 'q': 60, 'r': 70, 's': 80, 't': 90, 'u': 100, 'v': 10, 'w': 20, 'x': 30, 'y': 40, 'z': 50},
+        'x': {'a': 18, 'b': 20, 'c': 30, 'd': 40, 'e': 50, 'f': 60, 'g': 70, 'h': 80, 'i': 90, 'j': 100, 'k': 10, 'l': 20, 'm': 30, 'n': 40, 'o': 50, 'p': 60, 'q': 70, 'r': 80, 's': 90, 't': 100, 'u': 10, 'v': 20, 'w': 30, 'x': 40, 'y': 50, 'z': 60},
+        'y': {'a': 25, 'b': 30, 'c': 40, 'd': 50, 'e': 60, 'f': 70, 'g': 80, 'h': 90, 'i': 100, 'j': 10, 'k': 20, 'l': 30, 'm': 40, 'n': 50, 'o': 60, 'p': 70, 'q': 80, 'r': 90, 's': 100, 't': 10, 'u': 20, 'v': 30, 'w': 40, 'x': 50, 'y': 60, 'z': 70},
+        'z': {'a': 31, 'b': 44, 'c': 59, 'd': 60, 'e': 70, 'f': 80, 'g': 90, 'h': 100, 'i': 10, 'j': 20, 'k': 30, 'l': 40, 'm': 50, 'n': 60, 'o': 70, 'p': 80, 'q': 90, 'r': 100, 's': 10, 't': 20, 'u': 30, 'v': 40, 'w': 50, 'x': 60, 'y': 70, 'z': 80}
+    };
+
+    return compatibilityMap[secondChar1] && compatibilityMap[secondChar1][secondChar2] !== undefined 
+        ? compatibilityMap[secondChar1][secondChar2] 
+        : 0;
+}
+
+
+        function showLoading(show) {
+            const loadingElement = document.getElementById('loading');
+            if (show) {
+                loadingElement.style.display = 'block';
+            } else {
+                loadingElement.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
